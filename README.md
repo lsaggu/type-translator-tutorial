@@ -1,4 +1,4 @@
-# type-recorder
+# type-translator
 
 A Node.js app using [Express 4](http://expressjs.com/).
 
@@ -6,8 +6,8 @@ This application was built using the [Getting Started on Heroku with Node.js](ht
 
 ## About
 
-This is (at the moment) a simple app for the purposes of learning about development. This is a Node.js app, and I use Visual Studio 2019 to develop it locally. 
-The app is ultimately designed to be able to allow a user to enter a string on text and then create and download an audio clip of that text being read aloud.
+This is (at the moment) a simple app for the purposes of learning about development. This is a Node.js app hosted on Heroku, and I use Visual Studio Code to develop it locally. 
+The app is ultimately designed to be able to allow a user to enter a string of text and then translate the text from the specified language to a specified language.
 This is still in development!
 
 ## Running Locally
