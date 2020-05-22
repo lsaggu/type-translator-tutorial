@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <% include ../partials/header.ejs %>
+    <script src='./scripts/main.js'></script>
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <header>
+            <% include ../partials/nav.ejs %>
+        </header>
+
+        <main>
+            <div class="jumbotron jumbotron-fluid">
+                <div class="position-absolute w-100 p-4">
+                    <div class="toast ml-auto" role="alert" data-delay="3000">
+                        <div class="toast-header">
+                            <strong class="mr-auto text-primary">Awesome!</strong>
+                            <small class="text-muted">Just Now</small>
+                            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <svg class="bi bi-x" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z" clip-rule="evenodd" />
+                                    <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="toast-body text-center" style="color:black;"> You created a recording! </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col d-flex justify-content-center">
+                            <a href="/" class="lang-logo">
+                                <img src="/images/type-recorder-logo_125x125.png">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col text-center">
+                            <h1 class="display-4">type-recorder</h1>
+                            <p><strong>Record</strong> and <i>play back</i> your text.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"></div> <!-- styling div -->
+                        <div class="col-md-6">
+                            <div id="error_message" class="alert alert-danger text-center d-none"></div>
+                            <div class="form-group">
+                                <textarea id="text_input" class="form-control text-input shadow" placeholder="Enter your text here..." maxlength="500" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-3"></div> <!-- styling div -->
+                    </div>
+                    <div class="row d-flex flex-row justify-content-center mb-2">
+                        <!-- voice options -->
+                        <div class="col-md-4">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Voice</span>
+                                </div>
+                                <select id="voice_select" class="custom-select custom-select-sm shadow-sm" onchange="handleVoiceChange(event)">
+                                    <optgroup label="Basic">
+                                        <option class="text-center" selected value="standard" data-type="Standard">Standard</option>
+                                    </optgroup>
+                                    <optgroup label="Standard">
+                                        <% voiceOptions.forEach(function(voiceOpt){ %>
+                                        <% if (voiceOpt.VoiceType === 'Standard') { %>
+                                        <option value="<%= voiceOpt.ShortName %>" data-type="<%= voiceOpt.VoiceType %>"><%- voiceOpt.ShortName %> | <%- voiceOpt.Gender %></option>
+                                        <% } %>
+                                        <% }); %>
+                                    </optgroup>
+                                    <optgroup label="Neural">
+                                        <% voiceOptions.forEach(function(voiceOpt){ %>
+                                        <% if (voiceOpt.VoiceType === 'Neural') { %>
+                                            <option value="<%= voiceOpt.ShortName %>" data-type="<%= voiceOpt.VoiceType %>"><%- voiceOpt.ShortName %> | <%- voiceOpt.Gender %></option>
+                                        <% } %>
+                                        <% }); %>
+                                    </optgroup>
+                                </select>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" data-toggle="tooltip" data-placement="right" title="Select the voice that will read back the text. More information on locales at the bottom of the page.">
+                                        <svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd" />
+                                            <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z" />
+                                            <circle cx="8" cy="4.5" r="1" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex flex-row justify-content-center mb-2">
+                        <!-- Speed option -->
+                        <div class="col-md-3 d-none" id="speed_container">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Speed</span>
+                                </div>
+                                <input type="number" class="form-control" id="speed_input" min="0" max="5" step="0.1" value="1" />
+                                <div class="input-group-append">
+                                    <span class="input-group-text" data-toggle="tooltip" data-placement="right" title="Select the speed at which the text should be spoken. A speed of 0.9 to 1 represents normal human speech.">
+                                        <svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd" />
+                                            <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z" />
+                                            <circle cx="8" cy="4.5" r="1" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex flex-row justify-content-center mb-4">
+                        <!-- style options -->
+                        <div class="col-md-3">
+                            <div id="style_select_container" class="input-group input-group-sm d-none">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Style</span>
+                                </div>
+                                <select id="style_select" class="custom-select custom-select-sm shadow-sm">
+                                    <option class="text-center" selected value="standard">Standard</option>
+                                </select>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" data-toggle="tooltip" data-placement="right" title="Select the style/sentiment the text should be expressed with. This feature is only available for select voices.">
+                                        <svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd" />
+                                            <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z" />
+                                            <circle cx="8" cy="4.5" r="1" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col text-center">
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-lg btn-info" onclick="play();">
+                                    <svg id="play_icon" class="bi bi-music-player-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M2 2a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V2zm2 1a1 1 0 011-1h6a1 1 0 011 1v2.5a1 1 0 01-1 1H5a1 1 0 01-1-1V3zm7 8a3 3 0 11-6 0 3 3 0 016 0z" clip-rule="evenodd" />
+                                        <circle cx="8" cy="11" r="1" />
+                                    </svg>
+                                    Play
+                                </button>
+                                <button class="btn btn-lg btn-light" onclick="record();">
+                                    <svg id="lightning_symbol" class="bi bi-lightning" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M11.251.068a.5.5 0 01.227.58L9.677 6.5H13a.5.5 0 01.364.843l-8 8.5a.5.5 0 01-.842-.49L6.323 9.5H3a.5.5 0 01-.364-.843l8-8.5a.5.5 0 01.615-.09zM4.157 8.5H7a.5.5 0 01.478.647L6.11 13.59l5.732-6.09H9a.5.5 0 01-.478-.647L9.89 2.41 4.157 8.5z" clip-rule="evenodd" />
+                                    </svg>
+                                    Record
+                                </button>
+                                <button class="btn btn-lg btn-dark" onclick="reset();">
+                                    <svg class="bi bi-skip-backward" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M.5 3.5A.5.5 0 011 4v3.248l6.267-3.636c.52-.302 1.233.043 1.233.696v2.94l6.267-3.636c.52-.302 1.233.043 1.233.696v7.384c0 .653-.713.998-1.233.696L8.5 8.752v2.94c0 .653-.713.998-1.233.696L1 8.752V12a.5.5 0 01-1 0V4a.5.5 0 01.5-.5zm7 1.133L1.696 8 7.5 11.367V4.633zm7.5 0L9.196 8 15 11.367V4.633z" clip-rule="evenodd" />
+                                    </svg>
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-3"></div>
+                        <div class="col">
+                            <div id="progress_bar" class="progress d-none" style="height: 3px;">
+                                <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                    <div id="loading_spinner_row" class="row d-none">
+                        <div class="col">
+                            <div class="d-flex justify-content-center">
+                                <div class="spinner-border" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4 mb-2">
+                        <div class="col text-center">
+                            <audio id="audio_player">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row mb-2">
+                        <div class="col"></div>
+                        <div class="col">
+                            <!-- Amazon Advertisement -->
+                            <div class="aws-flex-center d-none d-md-block">
+                                <script type="text/javascript">
+                                    amzn_assoc_ad_type = "banner";
+                                    amzn_assoc_marketplace = "amazon";
+                                    amzn_assoc_region = "US";
+                                    amzn_assoc_placement = "assoc_banner_placement_default";
+                                    amzn_assoc_campaigns = "computers_accesories";
+                                    amzn_assoc_banner_type = "category";
+                                    amzn_assoc_p = "48";
+                                    amzn_assoc_isresponsive = "false";
+                                    amzn_assoc_banner_id = "12SHD2GMJHYRK5C3AVG2";
+                                    amzn_assoc_width = "728";
+                                    amzn_assoc_height = "90";
+                                    amzn_assoc_tracking_id = "typerecorder-20";
+                                    amzn_assoc_linkid = "ee0023a606a870052858882ce2f265cf";
+                                </script>
+                                <script src="//z-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1"></script>
+                            </div>
+                            <!-- Small version of ad -->
+                            <div class="aws-flex-center d-md-none">
+                                <script type="text/javascript">
+                                    amzn_assoc_ad_type = "banner";
+                                    amzn_assoc_marketplace = "amazon";
+                                    amzn_assoc_region = "US";
+                                    amzn_assoc_placement = "assoc_banner_placement_default";
+                                    amzn_assoc_campaigns = "computers_accesories";
+                                    amzn_assoc_banner_type = "category";
+                                    amzn_assoc_p = "21";
+                                    amzn_assoc_isresponsive = "false";
+                                    amzn_assoc_banner_id = "1CG3DJVEBW9EK6JGR482";
+                                    amzn_assoc_width = "125";
+                                    amzn_assoc_height = "125";
+                                    amzn_assoc_tracking_id = "typerecorder-20";
+                                    amzn_assoc_linkid = "95db785b682bc8aac9a003ee64f9a2b3";
+                                </script>
+                                <script src="//z-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1"></script>
+                            </div>
+                        </div>
+                        <div class="col"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div id="info_alert" class="row">
+                    <div class="col">
+                        <div class="alert alert-info text-center" role="alert">
+                            To create your own recording, enter some text above, and click on <strong>Record</strong>. The new recording will be available for download below.
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-5 flex-row d-flex justify-content-center">
+                    <div class="col">
+                        <!-- table of recordings -->
+                        <table id="recordings_table" class="table table-responsive-lg"> <!-- TODO: Fix table centering on ipad (md viewport) -->
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Text</th>
+                                    <th scope="col">Voice</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Speed</th>
+                                    <th scope="col">Created Date/Time</th>
+                                    <th scope="col">Audio File</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="audio_table_content">
+                            </tbody>
+                        </table>
+                        <div id="empty_table_msg" class="alert alert-secondary text-center" role="alert">There are no recordings yet.</div>
+                    </div>
+                </div>
+                <div class="row d-flex flex-row flex-wrap justify-content-center mb-2">
+                    <!-- Informational cards -->
+                    <div class="col-md-6">
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <h5 class="card-title">zh-HK?</h5>
+                                <p class="card-text">
+                                    Interested to learn more about <strong>locale codes</strong>? These codes (<i>i.e.</i> en-US) are used to specify locales.
+                                    Locales are used by software programs to determine languages and/or regional variations in speech.
+                                </p>
+                                <a href="https://docs.microsoft.com/en-us/windows/win32/intl/locales-and-languages" target="_blank" title="Learn more" class="btn btn-outline-primary">
+                                    Learn more!
+                                    <svg class="bi bi-box-arrow-up-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M1.5 13A1.5 1.5 0 003 14.5h8a1.5 1.5 0 001.5-1.5V9a.5.5 0 00-1 0v4a.5.5 0 01-.5.5H3a.5.5 0 01-.5-.5V5a.5.5 0 01.5-.5h4a.5.5 0 000-1H3A1.5 1.5 0 001.5 5v8zm7-11a.5.5 0 01.5-.5h5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V2.5H9a.5.5 0 01-.5-.5z" clip-rule="evenodd" />
+                                        <path fill-rule="evenodd" d="M14.354 1.646a.5.5 0 010 .708l-8 8a.5.5 0 01-.708-.708l8-8a.5.5 0 01.708 0z" clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                                <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/language-support" target="_blank" title="Locale table" class="btn btn-outline-secondary">
+                                    Locale table
+                                    <svg class="bi bi-box-arrow-up-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M1.5 13A1.5 1.5 0 003 14.5h8a1.5 1.5 0 001.5-1.5V9a.5.5 0 00-1 0v4a.5.5 0 01-.5.5H3a.5.5 0 01-.5-.5V5a.5.5 0 01.5-.5h4a.5.5 0 000-1H3A1.5 1.5 0 001.5 5v8zm7-11a.5.5 0 01.5-.5h5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V2.5H9a.5.5 0 01-.5-.5z" clip-rule="evenodd" />
+                                        <path fill-rule="evenodd" d="M14.354 1.646a.5.5 0 010 .708l-8 8a.5.5 0 01-.708-.708l8-8a.5.5 0 01.708 0z" clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <svg class="bi bi-layout-wtf" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M5 1H1v8h4V1zM1 0a1 1 0 00-1 1v8a1 1 0 001 1h4a1 1 0 001-1V1a1 1 0 00-1-1H1zm13 2H9v5h5V2zM9 1a1 1 0 00-1 1v5a1 1 0 001 1h5a1 1 0 001-1V2a1 1 0 00-1-1H9zM5 13H3v2h2v-2zm-2-1a1 1 0 00-1 1v2a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 00-1-1H3zm12-1H9v2h6v-2zm-6-1a1 1 0 00-1 1v2a1 1 0 001 1h6a1 1 0 001-1v-2a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                    </svg>
+                                    Know about Neural?
+                                </h5>
+                                <p class="card-text">
+                                    From Microsoft Azure Cognitive Services, "Neural voices are speech synthesis algorithms powered by deep neural networks."
+                                    They use deep machine learning technologies (coupled with lots of data) to produce human-like speech patterns based on
+                                    inputted text and locale information.
+                                </p>
+                                <a href="https://blog.type-recorder.com/2020/05/06/neural-voices-and-punctuation/" target="_blank" title="Learn more" class="btn btn-outline-primary">
+                                    Learn more!
+                                    <svg class="bi bi-box-arrow-up-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M1.5 13A1.5 1.5 0 003 14.5h8a1.5 1.5 0 001.5-1.5V9a.5.5 0 00-1 0v4a.5.5 0 01-.5.5H3a.5.5 0 01-.5-.5V5a.5.5 0 01.5-.5h4a.5.5 0 000-1H3A1.5 1.5 0 001.5 5v8zm7-11a.5.5 0 01.5-.5h5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V2.5H9a.5.5 0 01-.5-.5z" clip-rule="evenodd" />
+                                        <path fill-rule="evenodd" d="M14.354 1.646a.5.5 0 010 .708l-8 8a.5.5 0 01-.708-.708l8-8a.5.5 0 01.708 0z" clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <!-- Amazon Advertisement -->
+                    <div class="col"></div>
+                    <div class="col mb-2">
+                        <!-- Large ad -->
+                        <div class="aws-flex-center d-none d-md-block">
+                            <script type="text/javascript">
+                                amzn_assoc_ad_type = "banner";
+                                amzn_assoc_marketplace = "amazon";
+                                amzn_assoc_region = "US";
+                                amzn_assoc_placement = "assoc_banner_placement_default";
+                                amzn_assoc_campaigns = "software";
+                                amzn_assoc_banner_type = "category";
+                                amzn_assoc_p = "48";
+                                amzn_assoc_isresponsive = "false";
+                                amzn_assoc_banner_id = "1RN4GK8DRD84QSEK3R02";
+                                amzn_assoc_width = "728";
+                                amzn_assoc_height = "90";
+                                amzn_assoc_tracking_id = "typerecorder-20";
+                                amzn_assoc_linkid = "eb145be9da304e24c552fddb060b9898";
+                            </script>
+                            <script src="//z-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1"></script>
+                        </div>
+                        <!-- Small ad -->
+                        <div class="aws-flex-center d-md-none">
+                            <script type="text/javascript">
+                                amzn_assoc_ad_type = "banner";
+                                amzn_assoc_marketplace = "amazon";
+                                amzn_assoc_region = "US";
+                                amzn_assoc_placement = "assoc_banner_placement_default";
+                                amzn_assoc_campaigns = "software";
+                                amzn_assoc_banner_type = "category";
+                                amzn_assoc_p = "42";
+                                amzn_assoc_isresponsive = "false";
+                                amzn_assoc_banner_id = "14JFQBJ3H70KX89PET02";
+                                amzn_assoc_width = "234";
+                                amzn_assoc_height = "60";
+                                amzn_assoc_tracking_id = "typerecorder-20";
+                                amzn_assoc_linkid = "536f1dd0a8595319980f2e2cbd4cafca";
+                            </script>
+                            <script src="//z-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1"></script>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col mb-2">
+                        <!-- Large ad -->
+                        <div class="aws-flex-center d-none d-md-block">
+                            <script type="text/javascript">
+                                amzn_assoc_ad_type = "banner";
+                                amzn_assoc_marketplace = "amazon";
+                                amzn_assoc_region = "US";
+                                amzn_assoc_placement = "assoc_banner_placement_default";
+                                amzn_assoc_banner_type = "ez";
+                                amzn_assoc_p = "48";
+                                amzn_assoc_width = "728";
+                                amzn_assoc_height = "90";
+                                amzn_assoc_tracking_id = "typerecorder-20";
+                                amzn_assoc_linkid = "fd56fd65c446a3f6393bd05a83eeccfa";
+                            </script>
+                            <script src="//z-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1"></script>
+                        </div>
+                        <!-- small ad -->
+                        <div class="aws-flex-center d-md-none">
+                            <script type="text/javascript">
+                                amzn_assoc_ad_type = "banner";
+                                amzn_assoc_marketplace = "amazon";
+                                amzn_assoc_region = "US";
+                                amzn_assoc_placement = "assoc_banner_placement_default";
+                                amzn_assoc_banner_type = "ez";
+                                amzn_assoc_p = "9";
+                                amzn_assoc_width = "180";
+                                amzn_assoc_height = "150";
+                                amzn_assoc_tracking_id = "typerecorder-20";
+                                amzn_assoc_linkid = "917f9f2d8dd4ec13b4fa13369ee5adfe";
+                            </script>
+                            <script src="//z-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1"></script>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-2" style="border-top-style:solid;">
+                        <img src="/images/type-recorder-favicon_2.png" width="100%" />
+                    </div>
+                    <div class="col-md-5"></div>
+                </div>
+            </div>
+        </main>
+
+        <div class="push"></div>
+    </div>
+
+    <footer class="footer">
+        <% include ../partials/footer.ejs %>
+    </footer>
+
+    <!-- Scripts -->
+    <% include ../partials/scripts.ejs %>
+    <script src="./scripts/index.js"></script>
+
+</body>
+</html>

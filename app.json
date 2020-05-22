@@ -1,0 +1,8 @@
+{
+  "name": "type-translator",
+  "description": "A Node.js app (using Express 4) where a user can enter text in one language and translate it to another.",
+  "repository": "https://github.com/lsaggu/type-translator",
+  "logo": "public/lang-logo.png",
+  "keywords": [ "node", "express", "heroku" ],
+  "image": "heroku/nodejs"
+}

@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <% include ../partials/header.ejs %>
+</head>
+<body>
+    <div class="wrapper">
+
+        <header>
+            <% include ../partials/nav.ejs %>
+        </header>
+
+        <main>
+            <div class="container">
+                <div class="row mb-2">
+                    <div class="col">
+                        <h1>About type-recorder</h1>
+                        <hr />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <!-- Left portion of page -->
+                    <div class="col-md-8">
+                        <div class="container clearfix">
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <p>
+                                        <i>type-recorder</i> is designed to accept text input from a user and to create a short audio clip of the inputted text being read aloud. This audio clip is available
+                                        for the user to download and play independently - or the user might decide to use it as part of a larger audio or video production that he/she is working on.
+                                    </p>
+                                    <p>
+                                        <i>type-recorder</i> is a web application built using Node.js and Express 4 (and EJS). The front end is supported by <strong>Javascript</strong>,
+                                        <strong>jQuery</strong>, and <strong>Bootstrap 4</strong>
+                                        (Bootstrap likely being obvious <i class='far fa-grin-beam-sweat'></i> ). The synthesis of speech from text 
+                                        (<a href="https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/text-to-speech" target="_blank">text-to-speech 
+                                             <svg class="bi bi-box-arrow-up-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                 <path fill-rule="evenodd" d="M1.5 13A1.5 1.5 0 003 14.5h8a1.5 1.5 0 001.5-1.5V9a.5.5 0 00-1 0v4a.5.5 0 01-.5.5H3a.5.5 0 01-.5-.5V5a.5.5 0 01.5-.5h4a.5.5 0 000-1H3A1.5 1.5 0 001.5 5v8zm7-11a.5.5 0 01.5-.5h5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V2.5H9a.5.5 0 01-.5-.5z" clip-rule="evenodd" />
+                                                 <path fill-rule="evenodd" d="M14.354 1.646a.5.5 0 010 .708l-8 8a.5.5 0 01-.708-.708l8-8a.5.5 0 01.708 0z" clip-rule="evenodd" />
+                                             </svg></a>) is handled by the
+                                        Speech Services belonging to <strong>Microsoft Azure</strong>'s Cognitive Services suite of tools. <i>type-recorder</i> interacts with the Speech Services through
+                                        <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/speech-sdk?tabs=windows%2Cubuntu%2Cios-xcode%2Cmac-xcode%2Candroid-studio" target="_blank">
+                                            Microsoft Azure's Speech SDK
+                                            <svg class="bi bi-box-arrow-up-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M1.5 13A1.5 1.5 0 003 14.5h8a1.5 1.5 0 001.5-1.5V9a.5.5 0 00-1 0v4a.5.5 0 01-.5.5H3a.5.5 0 01-.5-.5V5a.5.5 0 01.5-.5h4a.5.5 0 000-1H3A1.5 1.5 0 001.5 5v8zm7-11a.5.5 0 01.5-.5h5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V2.5H9a.5.5 0 01-.5-.5z" clip-rule="evenodd" />
+                                                <path fill-rule="evenodd" d="M14.354 1.646a.5.5 0 010 .708l-8 8a.5.5 0 01-.708-.708l8-8a.5.5 0 01.708 0z" clip-rule="evenodd" />
+                                            </svg></a>.
+                                        We hope that <i>type-recorder</i> proves to be a fun, useful tool!
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">record-type on GitHub</h5>
+                                            <p class="card-text">
+                                                Nope, that's not a typo. Because I couldn't think of a better name, <i>record-type</i> is the name given to the Node.js <u>module</u> created as part of
+                                                this project to interact with the Microsoft Azure Cognitive Services <i>Speech SDK</i>.
+                                            </p>
+                                            <a href="https://github.com/lsaggu/record-type" target="_blank" class="btn btn-primary">
+                                                Check it out
+                                                <svg class="bi bi-box-arrow-up-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M1.5 13A1.5 1.5 0 003 14.5h8a1.5 1.5 0 001.5-1.5V9a.5.5 0 00-1 0v4a.5.5 0 01-.5.5H3a.5.5 0 01-.5-.5V5a.5.5 0 01.5-.5h4a.5.5 0 000-1H3A1.5 1.5 0 001.5 5v8zm7-11a.5.5 0 01.5-.5h5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V2.5H9a.5.5 0 01-.5-.5z" clip-rule="evenodd" />
+                                                    <path fill-rule="evenodd" d="M14.354 1.646a.5.5 0 010 .708l-8 8a.5.5 0 01-.708-.708l8-8a.5.5 0 01.708 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right portion of page -->
+                    <div class="col-md-4">
+                        <div class="container">
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <div class="card border-dark mb-3">
+                                        <img class="card-img-top" src="/images/loran2.jpg" alt="That's me!">
+                                        <div class="card-body text-primary">
+                                            <h5 class="card-title">About the author</h5>
+                                            <p class="card-text">
+                                                Loran Saggu is my name! I am a Technology Consultant and Developer with deep experience in and around the Salesforce.com platform.
+                                                I have worked across a breadth of industries, and I enjoy tackling complex problems leveraging process and technology. Being fluent across a range of
+                                                tools and technologies is important as a technologist, and I hope to improve my skills with a variety of tools through projects like this one.
+                                            </p>
+                                            <p class="card-text">
+                                                I studied Computer Science at Indiana University (Go Hoosiers!), and I spend my time, these days, in Orlando.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col mb-2">
+                        <!-- Large ads -->
+                        <div class="aws-flex-center d-none d-md-block">
+                            <script type="text/javascript">
+                                amzn_assoc_ad_type = "banner";
+                                amzn_assoc_marketplace = "amazon";
+                                amzn_assoc_region = "US";
+                                amzn_assoc_placement = "assoc_banner_placement_default";
+                                amzn_assoc_campaigns = "computers_accesories";
+                                amzn_assoc_banner_type = "category";
+                                amzn_assoc_p = "48";
+                                amzn_assoc_isresponsive = "false";
+                                amzn_assoc_banner_id = "1HA0E4HMD35YCKKM2VR2";
+                                amzn_assoc_width = "728";
+                                amzn_assoc_height = "90";
+                                amzn_assoc_tracking_id = "typerecorder-20";
+                                amzn_assoc_linkid = "a0bc3d1708dd2bda280baa0d5bf17e70";
+                            </script>
+                            <script src="//z-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1"></script>
+                        </div>
+                        <!-- small ad -->
+                        <div class="aws-flex-center d-md-none">
+                            <script type="text/javascript">
+                                amzn_assoc_ad_type = "banner";
+                                amzn_assoc_marketplace = "amazon";
+                                amzn_assoc_region = "US";
+                                amzn_assoc_placement = "assoc_banner_placement_default";
+                                amzn_assoc_campaigns = "computers_accesories";
+                                amzn_assoc_banner_type = "category";
+                                amzn_assoc_p = "21";
+                                amzn_assoc_isresponsive = "false";
+                                amzn_assoc_banner_id = "1SHGCFFM6T54YWBQH8G2";
+                                amzn_assoc_width = "125";
+                                amzn_assoc_height = "125";
+                                amzn_assoc_tracking_id = "typerecorder-20";
+                                amzn_assoc_linkid = "02732ffd35259fa47362b0607e83e68b";
+                            </script>
+                            <script src="//z-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1"></script>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col mb-2">
+                        <!-- large ad -->
+                        <div class="aws-flex-center d-none d-md-block">
+                            <script type="text/javascript">
+                                amzn_assoc_ad_type = "banner";
+                                amzn_assoc_marketplace = "amazon";
+                                amzn_assoc_region = "US";
+                                amzn_assoc_placement = "assoc_banner_placement_default";
+                                amzn_assoc_campaigns = "software";
+                                amzn_assoc_banner_type = "category";
+                                amzn_assoc_p = "48";
+                                amzn_assoc_isresponsive = "false";
+                                amzn_assoc_banner_id = "1BHK0X94Y5YT7HT1V482";
+                                amzn_assoc_width = "728";
+                                amzn_assoc_height = "90";
+                                amzn_assoc_tracking_id = "typerecorder-20";
+                                amzn_assoc_linkid = "fa4702fe4db61b58da7d0dbcad12e111";
+                            </script>
+                            <script src="//z-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1"></script>
+                        </div>
+                        <!-- Small ad -->
+                        <div class="aws-flex-center d-md-none">
+                            <script type="text/javascript">
+                                amzn_assoc_ad_type = "banner";
+                                amzn_assoc_marketplace = "amazon";
+                                amzn_assoc_region = "US";
+                                amzn_assoc_placement = "assoc_banner_placement_default";
+                                amzn_assoc_campaigns = "software";
+                                amzn_assoc_banner_type = "category";
+                                amzn_assoc_p = "21";
+                                amzn_assoc_isresponsive = "false";
+                                amzn_assoc_banner_id = "04C5ABEVY3RE1CKZSAG2";
+                                amzn_assoc_width = "125";
+                                amzn_assoc_height = "125";
+                                amzn_assoc_tracking_id = "typerecorder-20";
+                                amzn_assoc_linkid = "0e44fc34bb91fb2686e8a45f18a01380";
+                            </script>
+                            <script src="//z-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1"></script>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-2" style="border-top-style:solid;">
+                        <img src="/images/type-recorder-favicon_2.png" width="100%" />
+                    </div>
+                    <div class="col-md-5"></div>
+                </div>
+</main>
+
+        <div class="push"></div>
+    </div>
+
+    <footer class="footer">
+        <% include ../partials/footer.ejs %>
+    </footer>
+
+    <!-- Scripts -->
+    <% include ../partials/scripts.ejs %>
+    <script src="./scripts/about.js"></script>
+
+</body>
+</html>

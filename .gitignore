@@ -1,0 +1,24 @@
+# Node build artifacts
+node_modules
+npm-debug.log
+
+# Local development
+*.env
+*.dev
+.DS_Store
+
+# Docker
+Dockerfile
+docker-compose.yml
+
+# Visual Studio folders/files
+[O/o]bj
+type-recorder.njsproj
+type-recorder.njsproj.user
+type-recorder.sln
+
+# Temporary Audio Files
+[P/p]ublic/[A/a]udio/*
+![P/p]ublic/[A/a]udio/type-recorder_audio.wav
+![P/p]ublic/[A/a]udio/voices.json
+![P/p]ublic/[A/a]udio/sample.xml
