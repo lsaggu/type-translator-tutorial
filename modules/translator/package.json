@@ -1,8 +1,8 @@
 {
-  "name": "record",
+  "name": "translator",
   "version": "1.0.0",
-  "description": "module for handling the conversion/synthesis of text to speech using cloud service provider api",
-  "main": "record.js",
+  "description": "module for handling the translation of text",
+  "main": "translate.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,7 +15,7 @@
     "tmp": "^0.2.1"
   },
   "keywords": [
-    "text-to-speech"
+    "translate"
   ],
   "author": "Lorander Saggu",
   "license": "MIT"
