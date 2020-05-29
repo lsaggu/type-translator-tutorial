@@ -4,7 +4,7 @@
 $(document).ready(() => {
     $("#menu_item_home").addClass("active");
 
-    //reset();
+    reset();
     
 });
 
@@ -63,15 +63,8 @@ function translateText() {
 function reset() {
     
     //reset language selected
-    $('#voice_select').val('standard');
-
-    //reset speed
-    $("#speed_container").addClass('d-none');
-    $("#speed_input").val('1'); 
-
-    //hide style_select section
-    $('#style_select_container').addClass('d-none');
-    isStylistic = false;
+    $('#from_select').val('en');
+    $('#to_select').val('af');
 
     //clear text
     $('#text_input').val(null);

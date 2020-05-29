@@ -46,7 +46,10 @@ For more information about using Node.js see below:
 
 ## Additional Project Resources
 
-
+- [Microsoft Translation Quickstart](https://docs.microsoft.com/en-us/azure/cognitive-services/Translator/quickstart-translate?pivots=programming-language-javascript)
+- [Microsoft Transliteration Quickstart](https://docs.microsoft.com/en-us/azure/cognitive-services/Translator/quickstart-transliterate?pivots=programming-language-javascript)
+- [Microsoft Language Detection Quickstart](https://docs.microsoft.com/en-us/azure/cognitive-services/Translator/quickstart-detect?pivots=programming-language-javascript)
+- [Microsoft Dictionary Quickstart](https://docs.microsoft.com/en-us/azure/cognitive-services/Translator/quickstart-dictionary?pivots=programming-language-javascript)
 
 ### Stack Overflow
 

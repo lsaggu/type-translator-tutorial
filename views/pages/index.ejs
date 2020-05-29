@@ -49,6 +49,10 @@
                         <div class="col-md-6">
                             <div id="error_message" class="alert alert-danger text-center d-none"></div>
                             <div class="form-group">
+                                <label for="text_input" class="text-left" style="color:black">
+                                    <span class="spinner-grow spinner-grow-sm text-light align-middle" role="status" aria-hidden="true"></span>
+                                    Language Detected... <strong><span id="detected_language">None</span></strong>
+                                </label>
                                 <textarea id="text_input" class="form-control text-input shadow" placeholder="Enter your text here..." maxlength="500" required></textarea>
                             </div>
                         </div>
@@ -56,16 +60,18 @@
                     </div>
                     <div class="row d-flex flex-row justify-content-center mb-4">
                         <!-- voice options -->
-                        <div class="col-md-3">
+                        <div class="col-md-3 mb-2">
                             <div class="input-group input-group-sm">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">From</span>
                                 </div>
-                                <select id="from_select" class="custom-select custom-select-sm shadow-sm" onchange="handleVoiceChange(event)">
-                                    <option class="text-center" selected value="standard" data-type="Standard">English</option>
+                                <select id="from_select" class="custom-select custom-select-sm shadow-sm">
+                                    <% for (var lang in languages.translation) { %>
+                                    <option value="<%= lang %>"><%- languages.translation[lang].name %></option>
+                                    <% } %>
                                 </select>
                                 <div class="input-group-append">
-                                    <span class="input-group-text" data-toggle="tooltip" data-placement="right" title="Select the voice that will read back the text. More information on locales at the bottom of the page.">
+                                    <span class="input-group-text" data-toggle="tooltip" data-placement="right" title="Select the language of the inputted text to be translated *from*. More information on supported languages at the bottom of the page.">
                                         <svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd" />
                                             <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z" />
@@ -75,16 +81,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 mb-2">
                             <div class="input-group input-group-sm">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">To</span>
                                 </div>
-                                <select id="to_select" class="custom-select custom-select-sm shadow-sm" onchange="handleVoiceChange(event)">
-                                    <option class="text-center" selected value="standard" data-type="Standard">English</option>
+                                <select id="to_select" class="custom-select custom-select-sm shadow-sm">
+                                    <% for (var lang in languages.translation) { %>
+                                    <option value="<%= lang %>"><%- languages.translation[lang].name %></option>
+                                    <% } %>
                                 </select>
                                 <div class="input-group-append">
-                                    <span class="input-group-text" data-toggle="tooltip" data-placement="right" title="Select the voice that will read back the text. More information on locales at the bottom of the page.">
+                                    <span class="input-group-text" data-toggle="tooltip" data-placement="right" title="Select the language the inputted text will be translated *to*. More information on supported languages at the bottom of the page.">
                                         <svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd" />
                                             <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z" />
@@ -154,20 +162,54 @@
                     <div class="col-md-6">
                         <div class="card mb-2">
                             <div class="card-body">
-                                <h5 class="card-title">zh-HK?</h5>
+                                <h5 class="card-title">
+                                    <svg class="bi bi-blockquote-left" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M2 3.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm5 3a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
+                                        <path d="M3.734 6.352a6.586 6.586 0 0 0-.445.275 1.94 1.94 0 0 0-.346.299 1.38 1.38 0 0 0-.252.369c-.058.129-.1.295-.123.498h.282c.242 0 .431.06.568.182.14.117.21.29.21.521a.697.697 0 0 1-.187.463c-.12.14-.289.21-.503.21-.336 0-.577-.108-.721-.327C2.072 8.619 2 8.328 2 7.969c0-.254.055-.485.164-.692.11-.21.242-.398.398-.562.16-.168.33-.31.51-.428.18-.117.33-.213.451-.287l.211.352zm2.168 0a6.588 6.588 0 0 0-.445.275 1.94 1.94 0 0 0-.346.299c-.113.12-.199.246-.257.375a1.75 1.75 0 0 0-.118.492h.282c.242 0 .431.06.568.182.14.117.21.29.21.521a.697.697 0 0 1-.187.463c-.12.14-.289.21-.504.21-.335 0-.576-.108-.72-.327-.145-.223-.217-.514-.217-.873 0-.254.055-.485.164-.692.11-.21.242-.398.398-.562.16-.168.33-.31.51-.428.18-.117.33-.213.451-.287l.211.352z" />
+                                    </svg>
+                                    Language Support
+                                </h5>
                                 <p class="card-text">
-                                    Interested to learn more about <strong>locale codes</strong>? These codes (<i>i.e.</i> en-US) are used to specify locales.
-                                    Locales are used by software programs to determine languages and/or regional variations in speech.
+                                    Interested to learn more about the languages that <i>type-translator</i> supports?
+                                    Find out about <strong>translation</strong> and <strong>transliteration</strong> language support from Microsoft.
                                 </p>
-                                <a href="https://docs.microsoft.com/en-us/windows/win32/intl/locales-and-languages" target="_blank" title="Learn more" class="btn btn-outline-primary">
+                                <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/translator/language-support" target="_blank" title="Learn more" class="btn btn-outline-primary">
+                                    Language Support!
+                                    <svg class="bi bi-box-arrow-up-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M1.5 13A1.5 1.5 0 003 14.5h8a1.5 1.5 0 001.5-1.5V9a.5.5 0 00-1 0v4a.5.5 0 01-.5.5H3a.5.5 0 01-.5-.5V5a.5.5 0 01.5-.5h4a.5.5 0 000-1H3A1.5 1.5 0 001.5 5v8zm7-11a.5.5 0 01.5-.5h5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V2.5H9a.5.5 0 01-.5-.5z" clip-rule="evenodd" />
+                                        <path fill-rule="evenodd" d="M14.354 1.646a.5.5 0 010 .708l-8 8a.5.5 0 01-.708-.708l8-8a.5.5 0 01.708 0z" clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    Transliteration
+                                    <svg class="bi bi-brush" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M15.213 1.018a.572.572 0 0 1 .756.05.57.57 0 0 1 .057.746C15.085 3.082 12.044 7.107 9.6 9.55c-.71.71-1.42 1.243-1.952 1.596-.508.339-1.167.234-1.599-.197-.416-.416-.53-1.047-.212-1.543.346-.542.887-1.273 1.642-1.977 2.521-2.35 6.476-5.44 7.734-6.411z" />
+                                        <path d="M7 12a2 2 0 0 1-2 2c-1 0-2 0-3.5-.5s.5-1 1-1.5 1.395-2 2.5-2a2 2 0 0 1 2 2z" />
+                                    </svg>
+                                </h5>
+                                <p class="card-text" lang="ja-jp">
+                                    Transliteration is the conversion between one script (<i>e.g.</i> Latin) and another script (<i>e.g.</i> Japanese).
+                                </p>
+                                <p class="card-text text-center">
+                                    
+                                         konnichiwa => <span lang="ja-jp">FIX THIS</span>
+                                    
+                                </p>
+                                <a href="https://en.wikipedia.org/wiki/Transliteration" target="_blank" title="Learn more" class="btn btn-outline-primary">
                                     Learn more!
                                     <svg class="bi bi-box-arrow-up-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M1.5 13A1.5 1.5 0 003 14.5h8a1.5 1.5 0 001.5-1.5V9a.5.5 0 00-1 0v4a.5.5 0 01-.5.5H3a.5.5 0 01-.5-.5V5a.5.5 0 01.5-.5h4a.5.5 0 000-1H3A1.5 1.5 0 001.5 5v8zm7-11a.5.5 0 01.5-.5h5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V2.5H9a.5.5 0 01-.5-.5z" clip-rule="evenodd" />
                                         <path fill-rule="evenodd" d="M14.354 1.646a.5.5 0 010 .708l-8 8a.5.5 0 01-.708-.708l8-8a.5.5 0 01.708 0z" clip-rule="evenodd" />
                                     </svg>
                                 </a>
-                                <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/language-support" target="_blank" title="Locale table" class="btn btn-outline-secondary">
-                                    Locale table
+                                <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/translator/reference/v3-0-transliterate" target="_blank" title="Locale table" class="btn btn-outline-secondary">
+                                    Documentation
                                     <svg class="bi bi-box-arrow-up-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M1.5 13A1.5 1.5 0 003 14.5h8a1.5 1.5 0 001.5-1.5V9a.5.5 0 00-1 0v4a.5.5 0 01-.5.5H3a.5.5 0 01-.5-.5V5a.5.5 0 01.5-.5h4a.5.5 0 000-1H3A1.5 1.5 0 001.5 5v8zm7-11a.5.5 0 01.5-.5h5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V2.5H9a.5.5 0 01-.5-.5z" clip-rule="evenodd" />
                                         <path fill-rule="evenodd" d="M14.354 1.646a.5.5 0 010 .708l-8 8a.5.5 0 01-.708-.708l8-8a.5.5 0 01.708 0z" clip-rule="evenodd" />
