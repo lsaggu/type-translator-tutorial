@@ -13,9 +13,10 @@ docker-compose.yml
 
 # Visual Studio folders/files
 [O/o]bj
-type-recorder.njsproj
-type-recorder.njsproj.user
-type-recorder.sln
+[T/t]ype-translator/*
+type-translator.njsproj
+type-translator.njsproj.user
+type-translator.sln
 
 # Temporary Audio Files
 [P/p]ublic/[A/a]udio/*

@@ -10,6 +10,8 @@ This is (at the moment) a simple app for the purposes of learning about developm
 The app is ultimately designed to be able to allow a user to enter a string of text and then translate the text from the specified language to a specified language.
 This is still in development!
 
+Please update styling and give credit to **type-recorder LLC** on your website when sharing. Please link to https://www.type-recorder.com.
+
 ## Running Locally
 
 Make sure you have [Node.js](http://nodejs.org/) installed.
@@ -44,14 +46,9 @@ For more information about using Node.js see below:
 
 ## Additional Project Resources
 
-These are some additional resources that I want to callout - they greatly helped in making this project a reality!
 
-- [Microsoft Azure: Text-to-Speech Basics](https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/text-to-speech-basics?tabs=import&pivots=programming-language-javascript)
-- [Create a custom <audio> progress bar using Javascript](https://medium.com/@thomasmarren/create-a-custom-audio-progress-bar-using-javascript-51b358811abd)
 
 ### Stackoverflow
 
 I, like many developers cannot thank this community enough. 
-
-- [play .wav sound file encoded in base64 with javascript](https://stackoverflow.com/questions/17762763/play-wav-sound-file-encoded-in-base64-with-javascript)
 

@@ -9,6 +9,12 @@ $(document).ready(() => {
 });
 
 
+//detect language of inputted text using Microsoft Azure
+function detectLanguage() {
+    //handle capture of text and detection of language
+}
+
+
 // handle translate button click
 function translateText() {
     $('#error_message').addClass('d-none'); //hide any error messages
@@ -16,9 +22,8 @@ function translateText() {
     console.log('translating');
 
     var txt = $("#text_input").val(); //get text
-    var voice = $("#voice_select").val(); //get selected voice
-    var style = $("#style_select").val(); //get selected style
-    var speed = $("#speed_input").val(); //get speed
+    var fromLang = $("#from_select").val(); //get selected voice
+    var toLang = $("#to_select").val(); //get selected style
 
     //check text input
     if (txt.length == 0 || txt == '') {
@@ -31,11 +36,11 @@ function translateText() {
     //show spinner
     $('#loading_spinner_row').removeClass('d-none');
 
-    jQuery.get('/translate', { message: txt, from: voice, to: style }, function (data) {
+    jQuery.get('/translate', { message: txt, from: fromLang, to: toLang}, function (data) {
         console.log('successfully made Record call to server');
 
         //hide spinner
-        $('#loading_spinner_row').removeClass('d-none');
+        $('#loading_spinner_row').addClass('d-none');
 
     }).catch((error) => {
         console.log('error');

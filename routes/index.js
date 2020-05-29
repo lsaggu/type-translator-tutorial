@@ -1,7 +1,8 @@
 // modules
 const express = require('express');
-const base64 = require('base64-arraybuffer');
+//const base64 = require('base64-arraybuffer');
 const fs = require('fs');
+const translator = require('translator');
 
 //app
 const app = express();
@@ -9,7 +10,35 @@ const app = express();
 // router
 const router = express.Router();
 
-router.get('/', (req, res) => {
+//vars
+const filePath = './public/files/languages.json';
+
+router.get('/', async (req, res) => {
+
+	//check if languages has been set
+	if (!app.locals.languages) {
+		//if languages file does not exist, create it
+		if (!fs.existsSync(filePath)) {
+			//create languages file
+			try {
+				let languages = await translator.getLanguages();
+				fs.writeFileSync(filePath, languages);
+			} catch (e) {
+				console.log('error');
+				console.log(e);
+				res.sendStatus(500);
+				return;
+			}
+
+			console.log('creating languages file');
+		}
+
+		console.log('updating languages');
+		app.locals.languages = JSON.parse(fs.readFileSync('./public/files/languages.json'));
+	}
+
+	res.locals.languages = app.locals.languages;
+
 	//render home
 	res.render('pages/index');
 });
@@ -32,6 +61,12 @@ router.get('/translate', async (req, res) => {
 	var fromLang = req.query.from;
 	var toLang = req.query.to;
 
+	console.log('translating...');
+	console.log('text:', txt);
+	console.log('from language:', fromLang);
+	console.log('to language:', toLang);
+
+	res.sendStatus(200);
 
 	/*
 	try {

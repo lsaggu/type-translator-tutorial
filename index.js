@@ -17,7 +17,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 //favicon
-app.use(serveFavicon(path.join(__dirname, 'public', 'images', 'favicon-32x32.png')));
+app.use(serveFavicon(path.join(__dirname, 'public', 'images', 'favicon-32x32.png'))); //CHANGE THIS
 
 //routing
 app.use('/', routes);
