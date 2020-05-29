@@ -17,7 +17,7 @@ Please update styling and give credit to **type-recorder LLC** on your website w
 Make sure you have [Node.js](http://nodejs.org/) installed.
 
 ```sh
-$ git clone https://github.com/lsaggu/type-recorder.git # or clone your own fork
+$ git clone https://github.com/lsaggu/type-translator.git # or clone your own fork
 $ cd type-recorder
 $ npm install
 $ npm start
@@ -39,7 +39,7 @@ There are multiple cloud providers that can host this app
 For more information about using Node.js see below:
 
 - [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs) - This is how *type-recorder* got started
+- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs) - This is how *type-recorder* and *type-translator* got started.
 - [Best Practices for Node.js Development (on Heroku)](https://devcenter.heroku.com/articles/node-best-practices)
 - [Node.js Routing](https://www.mydatahack.com/website-page-routing-with-node-js-express-and-ejs/)
 - [EJS and Node.JS tutorial](https://medium.com/@bhanushali.mahesh3/creating-a-simple-website-with-node-js-express-and-ejs-view-engine-856382a4578f)
@@ -48,7 +48,7 @@ For more information about using Node.js see below:
 
 
 
-### Stackoverflow
+### Stack Overflow
 
 I, like many developers cannot thank this community enough. 
 
