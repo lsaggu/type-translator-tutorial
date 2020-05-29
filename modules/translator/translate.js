@@ -74,6 +74,10 @@ module.exports = {
         return languages;
     },
 
+    detectLanguage: function (text) {
+        //TODO
+    },
+
     translate: function (text, fromLang, toLang) {
         console.log('running translate');
         console.log('Endpoint:', process.env.AZURE_ENDPOINT);

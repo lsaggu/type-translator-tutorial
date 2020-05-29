@@ -47,12 +47,13 @@ router.get('/about', (req, res) => {
 	res.render('pages/about');
 });
 
-router.get('/privacy-policy', (req, res) => {
-	res.render('pages/privacy-policy');
-});
+//detect language of given text
+router.get('/detect-language', (req, res) => {
+	var txt = req.query.message;
 
-router.get('/terms-and-conditions', (req, res) => {
-	res.render('pages/terms-and-conditions');
+	console.log('detecting language...');
+
+
 });
 
 //translate request routing
@@ -65,8 +66,6 @@ router.get('/translate', async (req, res) => {
 	console.log('text:', txt);
 	console.log('from language:', fromLang);
 	console.log('to language:', toLang);
-
-	res.sendStatus(200);
 
 	/*
 	try {
@@ -86,6 +85,17 @@ router.get('/translate', async (req, res) => {
 	}
 	*/
 
+	res.sendStatus(200);
+});
+
+//CURRENTLY UNUSED - The footer section needs to be updated to point to this route
+router.get('/privacy-policy', (req, res) => {
+	res.render('pages/privacy-policy'); //PLEASE UPDATE THE PIVACY-POLICY PAGE IF YOU PLAN TO USE IT
+});
+
+//CURRENTLY UNUSED - The footer section needs to be updated to point to this route
+router.get('/terms-and-conditions', (req, res) => {
+	res.render('pages/terms-and-conditions'); //PLEASE UPDATE THE TERMS-AND-CONDITIONS PAGE IF YOU PLAN TO USE IT
 });
 
 
