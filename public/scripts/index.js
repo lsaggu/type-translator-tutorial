@@ -1,17 +1,47 @@
 //global vars
+var languages;
 
 // on page load
 $(document).ready(() => {
     $("#menu_item_home").addClass("active");
 
     reset();
-    
+
+    languages = JSON.parse($('#language_json').html());
 });
 
 
 //detect language of inputted text using Microsoft Azure
 function detectLanguage() {
     //handle capture of text and detection of language
+
+    $('#error_message').addClass('d-none'); //hide error message
+
+    //debounce
+    window.clearTimeout(this.delayTimeout);
+    const text = $('#text_input').val(); //get text
+    this.delayTimeout = setTimeout(() => {
+        //perform callout
+        jQuery.get('/detect-language', { message: text }, function (data) {
+            //handle results
+            
+            let result = JSON.parse(data)[0];
+            let language = languages.translation[result.language].name;
+
+            //update detected language
+            $('#detected_language').text(language);
+
+        }).catch((error) => {
+            console.log('error');
+            console.log(error);
+
+            //hide spinner
+            $('#loading_spinner_row').addClass('d-none');
+
+            $('#error_message').text('Unable to detect language...');
+            $('#error_message').removeClass('d-none'); //show error message
+        });
+    }, 500);
 }
 
 
@@ -61,10 +91,15 @@ function translateText() {
 //handle reset button click
 //reset text and audio player
 function reset() {
-    
+    //hide error message
+    $('#error_message').addClass('d-none');
+
     //reset language selected
     $('#from_select').val('en');
     $('#to_select').val('af');
+
+    //reset detected language
+    $('#detected_language').text('None');
 
     //clear text
     $('#text_input').val(null);

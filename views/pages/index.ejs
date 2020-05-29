@@ -53,7 +53,7 @@
                                     <span class="spinner-grow spinner-grow-sm text-light align-middle" role="status" aria-hidden="true"></span>
                                     Language Detected... <strong><span id="detected_language">None</span></strong>
                                 </label>
-                                <textarea id="text_input" class="form-control text-input shadow" placeholder="Enter your text here..." maxlength="500" required></textarea>
+                                <textarea id="text_input" class="form-control text-input shadow" placeholder="Enter your text here..." maxlength="500" required oninput="detectLanguage()"></textarea>
                             </div>
                         </div>
                         <div class="col-md-3"></div> <!-- styling div -->
@@ -120,6 +120,11 @@
                                     Reset
                                 </button>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row"> <!-- hidden content -->
+                        <div class="col">
+                            <div id="language_json" hidden><%- JSON.stringify(languages) %></div>
                         </div>
                     </div>
                     <div id="loading_spinner_row" class="row d-none">

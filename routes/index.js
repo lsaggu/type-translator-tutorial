@@ -48,11 +48,23 @@ router.get('/about', (req, res) => {
 });
 
 //detect language of given text
-router.get('/detect-language', (req, res) => {
+router.get('/detect-language', async (req, res) => {
 	var txt = req.query.message;
+	var response;
 
-	console.log('detecting language...');
+	try {
+		response = await translator.detectLanguage(txt);
+	}
+	catch (e) {
+		console.log('error on detection');
+		console.log(e);
+		res.sendStatus(500);
+		return;
+	}
 
+	//console.log('response', response);
+
+	res.send(response);
 
 });
 

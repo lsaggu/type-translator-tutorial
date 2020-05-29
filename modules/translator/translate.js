@@ -19,7 +19,40 @@ const endpoint = process.env.AZURE_ENDPOINT; //this is the endpoint of the micor
 
 //detect language based on given text
 function detectLanguage(text) {
+    let options = {
+        method: 'POST',
+        baseUrl: 'https://api.cognitive.microsofttranslator.com/',
+        url: 'detect',
+        qs: {
+            'api-version': '3.0',
+        },
+        headers: {
+            'Ocp-Apim-Subscription-Key': subscriptionKey,
+            'Content-type': 'application/json',
+            'X-ClientTraceId': uuidv4().toString()
+        },
+        body: [{
+            'text': text
+        }],
+        json: true,
+    };
 
+    return new Promise((resolve, reject) => {
+        request(options, function (err, res, body) {
+            if (err) {
+                console.log('Error');
+                reject(err);
+            }
+
+            if (body.error) {
+                console.log('Error', body.error.message);
+                reject(body.error);
+            }
+
+            var data = JSON.stringify(body, null, 4);
+            resolve(data);
+        });
+    });
 }
 
 //get a list of supported languages and save to a file
@@ -50,7 +83,7 @@ function getLanguages() {
 
             if (body.error) {
                 console.log('Error', body.error.message);
-                reject(error);
+                reject(body.error);
             }
 
             console.log('Getting Languages...');
@@ -74,8 +107,9 @@ module.exports = {
         return languages;
     },
 
-    detectLanguage: function (text) {
-        //TODO
+    detectLanguage: async function (text) {
+        let detectedLanguage = await detectLanguage(text);
+        return detectedLanguage;
     },
 
     translate: function (text, fromLang, toLang) {
