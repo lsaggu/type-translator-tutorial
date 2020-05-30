@@ -71,33 +71,19 @@ router.get('/detect-language', async (req, res) => {
 //translate request routing
 router.get('/translate', async (req, res) => {
 	var txt = req.query.message;
-	var fromLang = req.query.from;
 	var toLang = req.query.to;
 
-	console.log('translating...');
-	console.log('text:', txt);
-	console.log('from language:', fromLang);
-	console.log('to language:', toLang);
-
-	/*
 	try {
-		//call recorder module record funtion
-		if (voice == 'standard') {
-			tmpFile = await recorder.record(txt);
-		} else {
-			tmpFile = await recorder.recordSsml(txt, voice, style, speed);
-		}
-
-		res.send(tmpFile); //send filepath back to client
+		//call translator module translate funtion
+		let result = await translator.translate(txt, toLang);
+		res.send(result); //send translation result back to client
 
 	} catch (e) {
 		console.log(e);
 		res.sendStatus(500);
 		return;
 	}
-	*/
 
-	res.sendStatus(200);
 });
 
 //CURRENTLY UNUSED - The footer section needs to be updated to point to this route

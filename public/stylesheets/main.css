@@ -47,7 +47,7 @@ html, body {
 
 .footer,
 .push {
-    height: 150px;
+    height: 175px;
 }
 
 .table td {
@@ -57,7 +57,7 @@ html, body {
 
 .text-input {
     max-width: 100%;
-    margin: auto auto 2em auto;
+    margin: auto auto 1em auto;
 }
 
 .wrapper {

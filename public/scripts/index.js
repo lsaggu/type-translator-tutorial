@@ -49,10 +49,7 @@ function detectLanguage() {
 function translateText() {
     $('#error_message').addClass('d-none'); //hide any error messages
 
-    console.log('translating');
-
     var txt = $("#text_input").val(); //get text
-    var fromLang = $("#from_select").val(); //get selected voice
     var toLang = $("#to_select").val(); //get selected style
 
     //check text input
@@ -66,11 +63,16 @@ function translateText() {
     //show spinner
     $('#loading_spinner_row').removeClass('d-none');
 
-    jQuery.get('/translate', { message: txt, from: fromLang, to: toLang}, function (data) {
-        console.log('successfully made Record call to server');
-
+    jQuery.get('/translate', { message: txt, to: toLang}, function (data) {
+        
         //hide spinner
         $('#loading_spinner_row').addClass('d-none');
+
+        //update page to show translation
+        var result = JSON.parse(data)[0].translations[0].text;
+        $('#translation_output').text(result);
+
+        $('#output_row').removeClass('d-none');
 
     }).catch((error) => {
         console.log('error');
@@ -95,11 +97,13 @@ function reset() {
     $('#error_message').addClass('d-none');
 
     //reset language selected
-    $('#from_select').val('en');
     $('#to_select').val('af');
 
     //reset detected language
     $('#detected_language').text('None');
+
+    //clear translated text
+    $('#output_row').addClass('d-none');
 
     //clear text
     $('#text_input').val(null);

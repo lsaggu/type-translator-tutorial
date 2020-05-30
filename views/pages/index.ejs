@@ -58,30 +58,19 @@
                         </div>
                         <div class="col-md-3"></div> <!-- styling div -->
                     </div>
-                    <div class="row d-flex flex-row justify-content-center mb-4">
-                        <!-- voice options -->
-                        <div class="col-md-3 mb-2">
-                            <div class="input-group input-group-sm">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">From</span>
-                                </div>
-                                <select id="from_select" class="custom-select custom-select-sm shadow-sm">
-                                    <% for (var lang in languages.translation) { %>
-                                    <option value="<%= lang %>"><%- languages.translation[lang].name %></option>
-                                    <% } %>
-                                </select>
-                                <div class="input-group-append">
-                                    <span class="input-group-text" data-toggle="tooltip" data-placement="right" title="Select the language of the inputted text to be translated *from*. More information on supported languages at the bottom of the page.">
-                                        <svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd" />
-                                            <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z" />
-                                            <circle cx="8" cy="4.5" r="1" />
-                                        </svg>
-                                    </span>
-                                </div>
+                    <!-- place output here -->
+                    <div class="row mb-3 d-none" id="output_row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <textarea id="translation_output" class="form-control shadow" readonly>This text is meant to be treated as sample output from a computer program.</textarea>
                             </div>
                         </div>
-                        <div class="col-md-3 mb-2">
+                        <div class="col-md-3"></div>
+                    </div>
+                    <div class="row d-flex flex-row justify-content-center mb-4">
+                        <!-- language options -->
+                        <div class="col-md-4 mb-2">
                             <div class="input-group input-group-sm">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">To</span>
@@ -107,9 +96,9 @@
                         <div class="col text-center">
                             <div class="btn-group" role="group">
                                 <button class="btn btn-lg btn-light" onclick="translateText();">
-                                    <svg id="play_icon" class="bi bi-music-player-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M2 2a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V2zm2 1a1 1 0 011-1h6a1 1 0 011 1v2.5a1 1 0 01-1 1H5a1 1 0 01-1-1V3zm7 8a3 3 0 11-6 0 3 3 0 016 0z" clip-rule="evenodd" />
-                                        <circle cx="8" cy="11" r="1" />
+                                    <svg class="bi bi-arrow-bar-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M10.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L12.793 8l-2.647-2.646a.5.5 0 0 1 0-.708z" />
+                                        <path fill-rule="evenodd" d="M6 8a.5.5 0 0 1 .5-.5H13a.5.5 0 0 1 0 1H6.5A.5.5 0 0 1 6 8zm-2.5 6a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 1 0v11a.5.5 0 0 1-.5.5z" />
                                     </svg>
                                     Translate
                                 </button>
@@ -122,7 +111,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row"> <!-- hidden content -->
+                    <div class="row">
+                        <!-- hidden content -->
                         <div class="col">
                             <div id="language_json" hidden><%- JSON.stringify(languages) %></div>
                         </div>
@@ -137,20 +127,49 @@
                         </div>
                     </div>
                     <hr />
-                    <!-- place output here -->
                     <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8">
-                            <div class="card text-center">
-                                <div class="card-header">
-                                    <h5 style="color:black">Your Translation!</h5>
-                                </div>
-                                <div class="card-body">
-                                    <span id="player_output" class="card-text" style="color:black">Nothing translated yet...</span>
-                                </div>
+                        <div class="col"></div>
+                        <div class="col">
+                            <!-- Amazon Advertisement -->
+                            <div class="aws-flex-center d-none d-md-block">
+                                <script type="text/javascript">
+                                    amzn_assoc_ad_type = "banner";
+                                    amzn_assoc_marketplace = "amazon";
+                                    amzn_assoc_region = "US";
+                                    amzn_assoc_placement = "assoc_banner_placement_default";
+                                    amzn_assoc_campaigns = "computers_accesories";
+                                    amzn_assoc_banner_type = "category";
+                                    amzn_assoc_p = "48";
+                                    amzn_assoc_isresponsive = "false";
+                                    amzn_assoc_banner_id = "12SHD2GMJHYRK5C3AVG2";
+                                    amzn_assoc_width = "728";
+                                    amzn_assoc_height = "90";
+                                    amzn_assoc_tracking_id = "typerecorder-20";
+                                    amzn_assoc_linkid = "ee0023a606a870052858882ce2f265cf";
+                                </script>
+                                <script src="//z-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1"></script>
+                            </div>
+                            <!-- Small version of ad -->
+                            <div class="aws-flex-center d-md-none">
+                                <script type="text/javascript">
+                                    amzn_assoc_ad_type = "banner";
+                                    amzn_assoc_marketplace = "amazon";
+                                    amzn_assoc_region = "US";
+                                    amzn_assoc_placement = "assoc_banner_placement_default";
+                                    amzn_assoc_campaigns = "computers_accesories";
+                                    amzn_assoc_banner_type = "category";
+                                    amzn_assoc_p = "21";
+                                    amzn_assoc_isresponsive = "false";
+                                    amzn_assoc_banner_id = "1CG3DJVEBW9EK6JGR482";
+                                    amzn_assoc_width = "125";
+                                    amzn_assoc_height = "125";
+                                    amzn_assoc_tracking_id = "typerecorder-20";
+                                    amzn_assoc_linkid = "95db785b682bc8aac9a003ee64f9a2b3";
+                                </script>
+                                <script src="//z-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1"></script>
                             </div>
                         </div>
-                        <div class="col-md-2"></div>
+                        <div class="col"></div>
                     </div>
                 </div>
             </div>
@@ -201,9 +220,9 @@
                                 <p class="card-text" lang="ja-jp">
                                     Transliteration is the conversion between one script (<i>e.g.</i> Latin) and another script (<i>e.g.</i> Japanese).
                                 </p>
-                                <p class="card-text text-center">
+                                <p class="card-text text-center" lang="ja-jp">
                                     
-                                         konnichiwa => <span lang="ja-jp">FIX THIS</span>
+                                         konnichiwa => <span lang="ja-jp">?????</span>
                                     
                                 </p>
                                 <a href="https://en.wikipedia.org/wiki/Transliteration" target="_blank" title="Learn more" class="btn btn-outline-primary">
