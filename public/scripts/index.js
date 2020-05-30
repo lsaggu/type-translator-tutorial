@@ -8,6 +8,17 @@ $(document).ready(() => {
     reset();
 
     languages = JSON.parse($('#language_json').html());
+
+    jQuery.get('/translate', { message: 'hello', to: 'ja' }, function (data) {
+
+        //update page to show translation
+        var result = JSON.parse(data)[0].translations[0].text;
+        $('#konnichiwa').text(result);
+
+    }).catch((error) => {
+        $('#konnichiwa').text('Try typing hello into the translator and translating it to Japanese!');
+    });
+        
 });
 
 
@@ -71,6 +82,7 @@ function translateText() {
         //update page to show translation
         var result = JSON.parse(data)[0].translations[0].text;
         $('#translation_output').text(result);
+        console.log(result);
 
         $('#output_row').removeClass('d-none');
 
