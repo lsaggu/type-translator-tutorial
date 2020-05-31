@@ -6,11 +6,13 @@ This application was built using the [Getting Started on Heroku with Node.js](ht
 
 ## About
 
-This is (at the moment) a simple app for the purposes of learning about development. This is a Node.js app hosted on Heroku, and I use Visual Studio Code to develop it locally. 
-The app is ultimately designed to be able to allow a user to enter a string of text and then translate the text from the specified language to a specified language.
-This is still in development!
+This is (at the moment) a simple app for the purposes of learning about development. This is a Node.js app hosted on Heroku that uses Microsoft Azure Translation services to translate text. I recommend use of Visual Studio Code to develop it locally.
 
-Please update styling and give credit to **type-recorder LLC** on your website when sharing. Please link to https://www.type-recorder.com.
+This repository provides sample code for use in a tutorial on how to build a Node.js app. See the tutorial here:
+
+- [Let's Build a Web App](https://blog.type-recorder.com/lets-build-a-web-app)
+
+Please update styling and give credit to **type-recorder LLC** on your website when sharing. Please link to https://www.type-recorder.com and to this repository.
 
 ## Running Locally
 

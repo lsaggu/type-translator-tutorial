@@ -1,5 +1,5 @@
 {
-  "name": "type-translator",
+  "name": "type-translator-tutorial",
   "version": "0.0.1",
   "description": "A simple Node.js app using Express 4",
   "engines": {
@@ -25,7 +25,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/lsaggu/type-translator"
+    "url": "https://github.com/lsaggu/type-translator-tutorial"
   },
   "keywords": [
     "node",
