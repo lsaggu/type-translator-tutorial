@@ -19,6 +19,11 @@ Make sure you have [Node.js](http://nodejs.org/) installed.
 ```sh
 $ git clone https://github.com/lsaggu/type-translator.git # or clone your own fork
 $ cd type-recorder
+```
+Update the environment variables in the *./modules/translator/translate.js* file. Specifically, you need to update the **subscriptionKey** and **serviceRegion** variables on lines 13 and 14 respectively.
+These values should come from your own [Microsoft Azure Translator](https://azure.microsoft.com/en-us/services/cognitive-services/translator/) resource.
+
+```sh
 $ npm install
 $ npm start
 ```
